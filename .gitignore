@@ -127,4 +127,4 @@ dmypy.json
 # VS Code
 .vscode
 
-src/.storage/*
+**/.storage
