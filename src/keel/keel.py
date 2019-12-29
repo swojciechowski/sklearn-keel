@@ -9,7 +9,9 @@ from sklearn.utils import Bunch
 from sklearn.preprocessing import LabelEncoder
 
 STORAGE_DIR = os.path.join(os.path.dirname(__file__), ".storage")
-#TODO: Add fetching from KEEL, until then needs to be downloaded manually.
+
+
+# TODO: Add fetching from KEEL, until then needs to be downloaded manually.
 
 def find_datasets():
     for dirpath, _, filenames in os.walk(STORAGE_DIR):
@@ -34,6 +36,10 @@ def parse_keel_dat(dat_file):
     dtype = dict(zip(columns, types))
 
     data = pd.read_csv(io.StringIO(payload), names=columns, dtype=dtype)
+
+    if not output:  # if it was not found
+        output = columns[-1]
+
     target = data[output]
     data.drop(labels=output, axis=1, inplace=True)
 

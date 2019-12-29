@@ -1,5 +1,4 @@
-# Keel datasets
-Keel datasets provider
+# Sklearn KEEL Datasets Module
 
 ## Datasets
-Curently, datasets must be downloaded manually from [Keel datasets site](https://sci2s.ugr.es/keel/datasets.php). Please, use '.zip' files with complete sets and put them into 'src/.storage/{category}' directory.
+Currently, datasets must be downloaded manually from [Keel datasets site](https://sci2s.ugr.es/keel/datasets.php). Please, use '.zip' files with complete sets and put them into 'src/.storage/{category}' directory.
