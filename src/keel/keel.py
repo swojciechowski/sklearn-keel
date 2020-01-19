@@ -8,7 +8,7 @@ import pandas as pd
 from sklearn.utils import Bunch
 from sklearn.preprocessing import LabelEncoder
 
-STORAGE_DIR = os.path.join(os.path.dirname(__file__), ".storage")
+STORAGE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".storage")
 
 
 # TODO: Add fetching from KEEL, until then needs to be downloaded manually.
