@@ -8,10 +8,36 @@ import pandas as pd
 from sklearn.utils import Bunch
 from sklearn.preprocessing import LabelEncoder
 
-STORAGE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".storage")
+STORAGE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "_datasets")
 
 
-# TODO: Add fetching from KEEL, until then needs to be downloaded manually.
+def download_datasets():
+    import urllib.request
+    import zipfile
+    from tqdm import tqdm
+
+    urls = [
+        ("classification", "https://sci2s.ugr.es/keel/dataset/data/classification//full/All.zip"),
+        ("Imbalanced", "https://sci2s.ugr.es/keel/dataset/data/imbalanced//full/All.zip"),
+    ]
+
+    for name, url in urls:
+        print(f"Starting download of {name} ...")
+
+        zip_path = os.path.join(STORAGE_DIR, f"{name}.zip")
+        urllib.request.urlretrieve(url, zip_path)
+
+        extract_dir = os.path.join(STORAGE_DIR, name)
+        if not os.path.isdir(extract_dir):
+            os.makedirs(extract_dir)
+
+        with zipfile.ZipFile(zip_path) as zf:
+            for member in tqdm(zf.infolist(), desc='Extracting '):
+                try:
+                    zf.extract(member, extract_dir)
+                except zipfile.error as e:
+                    pass
+
 
 def find_datasets():
     for dirpath, _, filenames in os.walk(STORAGE_DIR):
@@ -62,3 +88,7 @@ def load_dataset(dataset_name, return_X_y=False):
         return prepare_X_y(data, target)
 
     return Bunch(data=data, target=target, filename=data_file)
+
+
+if __name__ == '__main__':
+    download_datasets()  # TODO: automate on setup or somehow
